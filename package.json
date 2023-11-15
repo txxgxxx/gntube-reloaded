@@ -1,0 +1,17 @@
+{
+  "name": "gntube",
+  "version": "1.0.0",
+  "description": "The best way to watch a videos.",
+  "repository": {
+    "type": "git",
+    "url": "(https://github.com/txxgxxx/gntube-reloaded)"
+  },
+  "scripts": {
+    "win": "node index.js"
+  },
+  "author": "Tageon Lee",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
