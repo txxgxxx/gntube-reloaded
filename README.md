@@ -12,11 +12,14 @@
 
 ## Local Router
 
-/user/edit -> Edit User
-/user/delete -> Delete User
 
-/video/watch -> Watch Video
-/video/edit -> Edit Video
-/video/delete -> Delete Video
-/video/comments -> Comment on a video
-/video/comments/delete -> Delete A Comment of a video
+/user/:id/ -> See User
+/user/logout -> Log Out
+/user/edit -> Edit MY Profile
+/user/delete -> Delete My Profile
+
+/video/:id -> See Video
+/video/:id/edit -> Edit Video
+/video/:id/delete -> Delete Video
+/video/upload -> Upload Video
+
