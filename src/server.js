@@ -5,26 +5,31 @@ const PORT = 4000;
 
 const app = express();
 const logger = morgan("dev");
-
-const home = (req, res) => {
-    console.log("I will respond.");
-    return res.send("hello");
-};
-const login = (req, res) => {
-    return res.send("login");
-};
-
 app.use(logger);
-app.get("/", home);
-app.get("/login", login); 
+
+
+const globalRouter = express.Router();
+
+const handleHome = (req, res) => res.send("Home");
+
+globalRouter.get("/", handleHome);
+
+const userRouter = express.Router();
+
+const handleEditUser = (req, res) => res.send("Edit User");
+
+userRouter.get("/edit", handleEditUser);
+
+const videoRouter = express.Router();
+
+const handleWatchVideo = (req, res) => res.send("Watch Video");
+
+videoRouter.get("/watch", handleWatchVideo);
+
+app.use("/", globalRouter);
+app.use("/user", userRouter);
+app.use("/video", videoRouter);
 
 const handleListening = () => 
 console.log(`✅ Server listening on port http://localhost:${PORT} 🚀`);
 app.listen(PORT, handleListening);
-
-
-// 사용자가 무언가를 요청하는 것을 알기 위해 사용, listen()에는 콜백이 있음. 
-// callback은 기본적으로 서버가 시작될 때 작동하는 함수이다. 
-
-// app.listen(4000, () => console.log("Server listening on port 4000 🚀"));
-// 3줄만으로 서버 열기
