@@ -1,7 +1,13 @@
-import Video from "../models/Video";
+import Video from "../models/video";
+
 export const home = (req, res) => {
-    Video.find({}, (error, videos) => {})
-    res.render("home", {pageTitle: "Home", videos});
+    console.log("Start");
+    Video.find({}, (error, videos) => {
+        console.log("errors", error);
+        console.log("videos", videos); 
+        return res.render("home.pug", {pageTitle: "Home", videos: []});
+    });
+    console.log("I finish first");
 };
 export const watch = (req, res) => {
     const { id } = req.params;
