@@ -1,13 +1,24 @@
 import Video from "../models/video";
 
-export const home = (req, res) => {
-    console.log("Start");
-    Video.find({}, (error, videos) => {
-        console.log("errors", error);
-        console.log("videos", videos); 
-        return res.render("home.pug", {pageTitle: "Home", videos: []});
-    });
-    console.log("I finish first");
+/* callback 방식, 
+console.log("start");
+Video.find({}, (error, videos) => {
+    return res.render("home.pug", {pageTitle: "Home", videos: []});
+});
+console.log("finished");
+아래는 promise 방식과 try catch를 통한 에러 검출
+*/
+export const home = async (req, res) => {
+    try{
+        console.log("Start");
+        const videos = await Video.find({});
+        console.log(videos);
+        console.log("finished");
+        return res.render("home", { pageTitle: "Home", videos });
+    } catch(error) {
+        console.log("Error", error);
+        return res.render("server-error");
+    }
 };
 export const watch = (req, res) => {
     const { id } = req.params;
