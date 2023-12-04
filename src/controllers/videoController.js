@@ -6,19 +6,10 @@ Video.find({}, (error, videos) => {
     return res.render("home.pug", {pageTitle: "Home", videos: []});
 });
 console.log("finished");
-아래는 promise 방식과 try catch를 통한 에러 검출
 */
 export const home = async (req, res) => {
-    try{
-        console.log("Start");
-        const videos = await Video.find({});
-        console.log(videos);
-        console.log("finished");
-        return res.render("home", { pageTitle: "Home", videos });
-    } catch(error) {
-        console.log("Error", error);
-        return res.render("server-error");
-    }
+    const videos = await Video.find({});
+    return res.render("home", { pageTitle: "Home", videos });
 };
 export const watch = (req, res) => {
     const { id } = req.params;
@@ -39,7 +30,17 @@ export const getUpload = (req, res) => {
 }
 
 export const postUpload = (req, res) => {
-    const {title} = req.body;
-    videos.push(newVideo);
+    const { title, description, hashtags } = req.body;
+    const video = new Video({
+        title,
+        description,
+        hashtags: hashtags.split(",").map((word) => !word.trim().startsWith("#") ? `#${word}` : word.trim()),
+        createdAt: Date.now(),
+        meta: {
+            views: 0,
+            rating: 0,
+        },
+    })
+    console.log(video);
     return res.redirect("/");
 }
