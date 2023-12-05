@@ -52,13 +52,7 @@ export const postUpload = async (req, res) => {
     await Video.create({
       title,
       description,
-      hashtags: hashtags
-        .split(",")
-        .map((word) =>
-          !word.trim().startsWith("#")
-            ? `#${word.trim().replace(/#/g, "")}`
-            : `#${word.trim().replace(/#/g, "")}`
-        ),
+      hashtags: hashtags,
     });
     return res.redirect("/");
   } catch (error) {
