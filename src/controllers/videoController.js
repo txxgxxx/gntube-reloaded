@@ -1,24 +1,18 @@
 import Video from "../models/video";
 
-/* callback 방식, 
-console.log("start");
-Video.find({}, (error, videos) => {
-    return res.render("home.pug", {pageTitle: "Home", videos: []});
-});
-console.log("finished");
-*/
 export const home = async (req, res) => {
     const videos = await Video.find({});
     console.log(videos);
     return res.render("home", { pageTitle: "Home", videos });
 };
-export const watch = (req, res) => {
+export const watch = async (req, res) => {
     const { id } = req.params;
-    res.render("watch", {pageTitle: `Watching ${video.title}`, video });
+    const video = await Video.findById(id);
+    res.render("watch", {pageTitle: video.title, video});
 }
 export const getEdit = (req,res) => {
     const { id } = req.params;
-    res.render("edit", {pageTitle: `Editing: ${video.title}`, video });
+    res.render("edit", {pageTitle: `Editing`, });
 };
 export const postEdit = (req, res) => {
     const { id } = req.params;
