@@ -141,21 +141,39 @@ export const getEdit = (req, res) => {
 };
 export const postEdit = async (req, res) => {
   const {
-    session: {
-      user: { _id },
-    },
+    session: { user },
     body: { name, email, username, location },
   } = req;
-  // it is same code with this,,
-  // but using the above code allows for mixing things up. this is ES6
-  // const id = req.session.user.id;
-  await User.findByIdAndUpdate(_id, {
-    name,
-    email,
-    username,
-    location,
-  });
-  return res.render("edit-profile");
+  const existsEmail = await User.exists({ email });
+  const existsUsername = await User.exists({ username });
+  if (user.email != email) {
+    if (existsEmail) {
+      return res.status(400).render("edit-profile", {
+        pageTitle: "Edit Profile",
+        errorMessage: "The email used by another user.",
+      });
+    }
+  }
+  if (user.username != username) {
+    if (existsUsername) {
+      return res.status(404).render("edit-profile", {
+        pageTitle: "Edit Profile",
+        errorMessage: "The username used by another user.",
+      });
+    }
+  }
+  const updatedUser = await User.findByIdAndUpdate(
+    user._id,
+    {
+      name,
+      email,
+      username,
+      location,
+    },
+    { new: true }
+  );
+  req.session.user = updatedUser;
+  return res.redirect("/users/edit");
 };
 
 export const see = (req, res) => res.send("See");
