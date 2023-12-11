@@ -141,29 +141,24 @@ export const getEdit = (req, res) => {
 };
 export const postEdit = async (req, res) => {
   const {
-    session: { user },
+    session: {
+      user: { _id },
+    },
     body: { name, email, username, location },
   } = req;
-  const existsEmail = await User.exists({ email });
-  const existsUsername = await User.exists({ username });
-  if (user.email != email) {
-    if (existsEmail) {
-      return res.status(400).render("edit-profile", {
-        pageTitle: "Edit Profile",
-        errorMessage: "The email used by another user.",
-      });
-    }
-  }
-  if (user.username != username) {
-    if (existsUsername) {
-      return res.status(404).render("edit-profile", {
-        pageTitle: "Edit Profile",
-        errorMessage: "The username used by another user.",
-      });
-    }
+  const findUsername = await User.findOne({ username });
+  const findEmail = await User.findOne({ email });
+  if (
+    (findUsername != null && findUsername._id != _id) ||
+    (findEmail != null && findEmail._id != _id)
+  ) {
+    return res.status(400).render("edit-profile", {
+      pageTitle: "Edit Profile",
+      errorMessage: "The email used by another user.",
+    });
   }
   const updatedUser = await User.findByIdAndUpdate(
-    user._id,
+    _id,
     {
       name,
       email,
