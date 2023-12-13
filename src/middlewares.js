@@ -29,9 +29,14 @@ export const avatarUpload = multer({
     fileSize: 3000000,
   },
 });
+
 export const videoUpload = multer({
   dest: "uploads/videos/",
   limits: {
     fileSize: 10000000,
   },
 });
+
+// export const notFoundMiddleware = (req, res, next) => {
+//   res.status(404).render("404", { pageTitle: "Page not found." });
+// };
