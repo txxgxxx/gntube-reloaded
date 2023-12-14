@@ -8,12 +8,6 @@ module.exports = {
     path: path.resolve(__dirname, "assets", "js"),
   },
   module: {
-    watch: true,
-    watchOptions: {
-      ignored: /node_modules/,
-      aggregateTimeout: 5000,
-      poll: 100,
-    },
     rules: [
       {
         test: /\.js$/,
@@ -23,6 +17,10 @@ module.exports = {
             presets: [["@babel/preset-env", { targets: "defaults" }]],
           },
         },
+      },
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
     ],
   },
