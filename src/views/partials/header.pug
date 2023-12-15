@@ -16,9 +16,9 @@ header
                 li
                     a(href=`/users/${loggedInUser._id}`)
                         if !loggedInUser.avatarUrl
-                            span 😁
+                            img.header__avatar(src="https://source.unsplash.com/random")
                         else
-                            if loggedInUser.socialOnly
+                            if loggedInUser.socialOnly || loggedInUser.avatarUrl[0] == 'h'
                                 img.header__avatar(src=loggedInUser.avatarUrl).avatar
                             else
                                 img.header__avatar(src="/" + loggedInUser.avatarUrl).avatar

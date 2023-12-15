@@ -25,6 +25,7 @@ export const postJoin = async (req, res) => {
       email,
       password,
       location,
+      avatarUrl: "https://source.unsplash.com/random",
     });
     return res.redirect("/login");
   } catch (error) {
