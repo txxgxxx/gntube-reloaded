@@ -174,6 +174,11 @@ document.addEventListener("keyup", (event) => {
     handleMute();
   }
 });
+
+const handleEnded = () => {
+  const { id } = videoContainer.dataset;
+  fetch(`/api/videos/${id}/views`, { method: "POST" });
+};
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleInputVolumeRange);
@@ -192,3 +197,4 @@ video.addEventListener("timeupdate", handleTimeUpdate);
 video.readyState
   ? handleLoadedMetadata()
   : video.addEventListener("loadeddata", handleLoadedMetadata);
+video.addEventListener("ended", handleEnded);
