@@ -12,6 +12,7 @@ const fullscreenBtnIcon = fullscreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
 
+let onTimeline = false;
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
 let volumeRemember = 0.5;
@@ -132,6 +133,7 @@ const handleFullscreenBtn = () => {
   }
 };
 
+const showControls = () => videoControls.classList.add("showing");
 const hideControls = () => videoControls.classList.remove("showing");
 
 const handleMouseMove = () => {
@@ -143,17 +145,27 @@ const handleMouseMove = () => {
     clearTimeout(controlsMovementTimeout);
     controlsMovementTimeout = null;
   }
-  videoControls.classList.add("showing");
-  controlsMovementTimeout = setTimeout(hideControls, 3000);
+  showControls();
+  if (!onTimeline) {
+    controlsMovementTimeout = setTimeout(hideControls, 1000);
+  }
 };
 
 const handleMouseLeave = () => {
-  controlsTimeout = setTimeout(hideControls, 3000);
+  onTimeline = false;
+  controlsTimeout = setTimeout(hideControls, 1000);
+};
+
+const handleMouseOver = () => {
+  clearTimeout(controlsMovementTimeout);
+  onTimeline = true;
 };
 
 document.addEventListener("keyup", (event) => {
   if (event.code === "Space") {
     event.preventDefault();
+    showControls();
+    setTimeout(hideControls, 1000);
     handlePlayClick();
   }
 });
@@ -169,6 +181,8 @@ volumeRange.addEventListener("change", handleChangeVolumeRange);
 timeline.addEventListener("input", handleTimelineChange);
 timeline.addEventListener("change", handleTimelineSet);
 timeline.addEventListener("focus", handleSkipAtFocus);
+timeline.addEventListener("mouseover", handleMouseOver);
+timeline.addEventListener("mouseleave", handleMouseLeave);
 fullscreenBtn.addEventListener("click", handleFullscreen);
 videoContainer.addEventListener("fullscreenchange", handleFullscreenBtn);
 videoContainer.addEventListener("mousemove", handleMouseMove);
