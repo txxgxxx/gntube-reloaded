@@ -6,11 +6,18 @@ let recorder;
 let videoFile;
 
 const handleDownload = () => {
+  startBtn.innerText = "Start Recording";
+  startBtn.removeEventListener("click", handleDownload);
+  startBtn.addEventListener("click", handleStart);
+
   const a = document.createElement("a");
   a.href = videoFile;
   a.download = "MyRecording.webm";
   document.body.appendChild(a);
   a.click();
+  document.body.removeChild(a);
+
+  init();
 };
 
 const handleStop = () => {
@@ -25,10 +32,10 @@ const handleStart = () => {
   startBtn.innerText = "Stop Recording";
   startBtn.removeEventListener("click", handleStart);
   startBtn.addEventListener("click", handleStop);
+  //
   recorder = new MediaRecorder(stream);
   recorder.ondataavailable = (event) => {
     videoFile = URL.createObjectURL(event.data);
-    console.log(videoFile);
     video.srcObject = null;
     video.src = videoFile;
     video.loop = true;
