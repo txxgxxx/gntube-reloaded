@@ -177,7 +177,7 @@ document.addEventListener("keyup", (event) => {
 
 const handleEnded = () => {
   const { id } = videoContainer.dataset;
-  fetch(`/api/videos/${id}/views`, { method: "POST" });
+  fetch(`/api/videos/${id}/view`, { method: "POST" });
 };
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
