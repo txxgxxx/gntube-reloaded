@@ -23,7 +23,7 @@ const handleDownload = async () => {
   const wasmURL = URL.createObjectURL(wasmBlob);
   await ffmpeg.load({ coreURL, wasmURL });
   await ffmpeg.writeFile("recording.webm", await fetchFile(videoFile));
-  await ffmpeg.exec(["-i", "recording.webm", "output.mp4"]);
+  await ffmpeg.exec(["-i", "recording.webm", "-r", "60", "output.mp4"]);
   const mp4File = await ffmpeg.readFile("output.mp4");
   const mp4Blob = new Blob([mp4File.buffer], { type: "video/mp4" });
   const mp4Url = URL.createObjectURL(mp4Blob);
