@@ -1,3 +1,5 @@
+import { FFmpeg } from "@ffmpeg/ffmpeg";
+import { fetchFile } from "@ffmpeg/util";
 const startBtn = document.getElementById("startBtn");
 const video = document.getElementById("preview");
 
@@ -5,14 +7,34 @@ let stream;
 let recorder;
 let videoFile;
 
-const handleDownload = () => {
+const handleDownload = async () => {
+  const baseURL = "https://unpkg.com/@ffmpeg/core@0.12.5/dist/umd";
+  const ffmpeg = new FFmpeg();
+  ffmpeg.on("log", ({ message }) => console.log(message));
+  const coreResponse = await fetch(`${baseURL}/ffmpeg-core.js`);
+  const wasmResponse = await fetch(`${baseURL}/ffmpeg-core.wasm`);
+  const coreBlob = new Blob([await coreResponse.text()], {
+    type: "application/javascript",
+  });
+  const wasmBlob = new Blob([await wasmResponse.arrayBuffer()], {
+    type: "application/wasm",
+  });
+  const coreURL = URL.createObjectURL(coreBlob);
+  const wasmURL = URL.createObjectURL(wasmBlob);
+  await ffmpeg.load({ coreURL, wasmURL });
+  await ffmpeg.writeFile("recording.webm", await fetchFile(videoFile));
+  await ffmpeg.exec(["-i", "recording.webm", "output.mp4"]);
+  const mp4File = await ffmpeg.readFile("output.mp4");
+  const mp4Blob = new Blob([mp4File.buffer], { type: "video/mp4" });
+  const mp4Url = URL.createObjectURL(mp4Blob);
+
   startBtn.innerText = "Start Recording";
   startBtn.removeEventListener("click", handleDownload);
   startBtn.addEventListener("click", handleStart);
 
   const a = document.createElement("a");
-  a.href = videoFile;
-  a.download = "MyRecording.webm";
+  a.href = mp4Url;
+  a.download = "MyRecording.mp4";
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
