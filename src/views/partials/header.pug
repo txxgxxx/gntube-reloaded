@@ -1,6 +1,6 @@
 header 
     a(href="/").header__logo
-        i.fab.fa-youtube
+        img(src="https://media.discordapp.net/attachments/1072248758689079388/1186903568268144770/2.png?ex=6594f116&is=65827c16&hm=047c7b0d07dd18f405b7d1719414b17ed6c2089af4314cad4eeae5f20573d4bf&=&format=webp&quality=lossless&width=952&height=952")
     nav 
         ul 
             li 
@@ -18,7 +18,7 @@ header
                         if !loggedInUser.avatarUrl
                             img.header__avatar(src="https://source.unsplash.com/random")
                         else
-                            if loggedInUser.socialOnly || loggedInUser.avatarUrl[0] == 'h'
+                            if loggedInUser.avatarUrl[0] == 'h'
                                 img.header__avatar(src=loggedInUser.avatarUrl).avatar
                             else
                                 img.header__avatar(src="/" + loggedInUser.avatarUrl).avatar

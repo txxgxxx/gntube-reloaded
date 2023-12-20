@@ -146,6 +146,11 @@ header .header__logo {
   color: #ff0000;
   font-size: 38px;
 }
+header .header__logo img {
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+}
 header ul {
   display: flex;
   justify-content: space-between;
