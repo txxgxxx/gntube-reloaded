@@ -72,7 +72,7 @@ const handleDownload = async () => {
   actionBtn.disabled = false;
   init();
   actionBtn.innerText = "Record Again";
-  actionBtn.removeEventListener("click", handleStart);
+  actionBtn.addEventListener("click", handleStart);
 };
 
 const handleStart = () => {
@@ -110,5 +110,4 @@ const init = async () => {
 };
 
 init();
-
 actionBtn.addEventListener("click", handleStart);
