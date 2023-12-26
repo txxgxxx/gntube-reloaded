@@ -1,6 +1,10 @@
 /*!**********************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/client/scss/styles.scss ***!
   \**********************************************************************************************************************/
+@import url(https://fonts.googleapis.com/css2?family=Roboto&display=swap);
+/*!**************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/client/scss/styles.scss (1) ***!
+  \**************************************************************************************************************************/
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -408,6 +412,36 @@ form label {
   max-width: 100%;
   margin-bottom: 10px;
   border-radius: 15px;
+}
+
+.video__data {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.video__data .video__title {
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+.video__data .video__data__info {
+  background-color: #272727;
+  padding: 15px 10px;
+  border-radius: 15px;
+}
+.video__data .video__data__info:hover {
+  background-color: #3f3f40;
+}
+.video__data .video__data__info .video__createdAt {
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 14px;
+}
+.video__data .video__owner {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+.video__data .video__owner a {
+  color: cornflowerblue;
+  text-decoration: underline;
 }
 
 a {

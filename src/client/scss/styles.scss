@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 // config
 @import "./config/_variables.scss";
 @import "./config/reset.scss";
@@ -18,6 +19,7 @@
 @import "./screens/profile.scss";
 @import "./screens/edit-profile.scss";
 @import "./screens/upload.scss";
+@import "./screens/watch.scss";
 
 // Defaults
 a {
