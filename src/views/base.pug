@@ -1,12 +1,19 @@
+include mixins/message
+
 doctype html 
 html(lang="ko")
-    
     head
         title   #{pageTitle} | #{siteName}
         link(rel="icon", style="border-radius:50%;", href="https://media.discordapp.net/attachments/1072248758689079388/1186903568268144770/2.png?ex=6594f116&is=65827c16&hm=047c7b0d07dd18f405b7d1719414b17ed6c2089af4314cad4eeae5f20573d4bf&=&format=webp&quality=lossless&width=952&height=952")
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
         link(rel="stylesheet", href="/goods/css/styles.css")
     body 
+        if messages.error 
+            +message("error", messages.error)
+        if messages.info 
+            +message("info", messages.info)
+        if messages.success
+            +message("success", messages.success)
         include partials/header.pug
         main
             block content
