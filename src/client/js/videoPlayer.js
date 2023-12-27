@@ -11,6 +11,7 @@ const fullscreenBtn = document.getElementById("fullscreen");
 const fullscreenBtnIcon = fullscreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
+const textArea = document.getElementById("textArea");
 
 let onTimeline = false;
 let controlsTimeout = null;
@@ -161,15 +162,21 @@ const handleMouseOver = () => {
   onTimeline = true;
 };
 
-document.addEventListener("keyup", (event) => {
+window.addEventListener("keyup", (event) => {
   if (event.code === "Space") {
+    if (event.target.id === textArea.id) {
+      return;
+    }
     event.preventDefault();
     showControls();
     setTimeout(hideControls, 1000);
     handlePlayClick();
   }
 });
-document.addEventListener("keyup", (event) => {
+window.addEventListener("keyup", (event) => {
+  if (event.target.id === textArea.id) {
+    return;
+  }
   if (event.key === "m") {
     handleMute();
   }
