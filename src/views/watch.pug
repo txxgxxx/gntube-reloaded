@@ -38,8 +38,8 @@ block content
         ul
             each comment in video.comments.reverse()
                 li.video__comment
-                    i.fas.fa-comment 
-                    |  #{comment.text}
+                    i.fas.fa-comment    
+                    span  #{comment.text}
 block scripts 
     script(src="/goods/js/videoPlayer.js")
     if loggedIn
