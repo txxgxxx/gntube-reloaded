@@ -9,9 +9,17 @@ const s3 = new aws.S3({
   },
 });
 
-const multerUploader = multerS3({
+const isRender = process.env.NODE_ENV === "production";
+
+const s3ImageUploader = multerS3({
   s3: s3,
-  bucket: "gntube",
+  bucket: "gntube/images",
+  acl: "public-read",
+});
+
+const s3VideoUploader = multerS3({
+  s3: s3,
+  bucket: "gntube/videos",
   acl: "public-read",
 });
 
@@ -19,6 +27,7 @@ export const localsMiddleware = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
   res.locals.siteName = "gn-tube";
   res.locals.loggedInUser = req.session.user || {};
+  res.locals.isRender = isRender;
   next();
 };
 
@@ -45,7 +54,7 @@ export const avatarUpload = multer({
   limits: {
     fileSize: 3000000,
   },
-  storage: multerUploader,
+  storage: isRender ? s3ImageUploader : undefined,
 });
 
 export const videoUpload = multer({
@@ -53,7 +62,7 @@ export const videoUpload = multer({
   limits: {
     fileSize: 100000000,
   },
-  storage: multerUploader,
+  storage: isRender ? s3VideoUploader : undefined,
 });
 
 // export const notFoundMiddleware = (req, res, next) => {

@@ -173,6 +173,7 @@ window.addEventListener("keyup", (event) => {
     handlePlayClick();
   }
 });
+
 window.addEventListener("keyup", (event) => {
   if (event.target.id === textArea.id) {
     return;
