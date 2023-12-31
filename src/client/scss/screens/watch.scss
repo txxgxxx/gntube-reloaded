@@ -41,5 +41,16 @@
     background-color: white;
     color: black;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .deleteBtn {
+      background-color: white;
+      border: none;
+      border-radius: 999px;
+      &:hover {
+        background-color: $grey--hover;
+      }
+    }
   }
 }

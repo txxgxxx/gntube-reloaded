@@ -458,6 +458,17 @@ form label {
   background-color: white;
   color: black;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.video__comments .video__comment .deleteBtn {
+  background-color: white;
+  border: none;
+  border-radius: 999px;
+}
+.video__comments .video__comment .deleteBtn:hover {
+  background-color: #3f3f40;
 }
 
 a {
