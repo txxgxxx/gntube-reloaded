@@ -1,7 +1,7 @@
 // import "regenerator-runtime";
 import "dotenv/config";
 import "./db";
-import "./models/video.js";
+import "./models/Video.js";
 import "./models/User.js";
 import "./models/Comment.js";
 import app from "./server";
