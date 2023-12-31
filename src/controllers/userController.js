@@ -57,6 +57,7 @@ export const postLogin = async (req, res) => {
   }
   req.session.loggedIn = true;
   req.session.user = user;
+  req.flash("success", "Welcome back!");
   return res.redirect("/");
 };
 
@@ -133,8 +134,9 @@ export const finishGithubLogin = async (req, res) => {
 };
 
 export const logout = (req, res) => {
+  req.session.user = null;
+  req.session.loggedIn = false;
   req.flash("info", "Bye Bye");
-  req.session.destroy();
   return res.redirect("/");
 };
 export const getEdit = (req, res) => {

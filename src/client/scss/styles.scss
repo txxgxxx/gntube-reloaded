@@ -81,4 +81,12 @@ main {
     background-color: $red;
     color: white;
   }
+  &.info {
+    background-color: royalblue;
+    color: white;
+  }
+  &.success {
+    background-color: #2ecc71;
+    color: white;
+  }
 }
